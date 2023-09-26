@@ -1,0 +1,771 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "f5852627-70ca-4959-8d60-53b48864603f",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isGlobal": true,
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 300000
+                },
+                {
+                  "durationMs": 900000
+                },
+                {
+                  "durationMs": 1800000
+                },
+                {
+                  "durationMs": 3600000
+                },
+                {
+                  "durationMs": 14400000
+                },
+                {
+                  "durationMs": 43200000
+                },
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 172800000
+                },
+                {
+                  "durationMs": 259200000
+                },
+                {
+                  "durationMs": 604800000
+                },
+                {
+                  "durationMs": 1209600000
+                },
+                {
+                  "durationMs": 2419200000
+                },
+                {
+                  "durationMs": 2592000000
+                },
+                {
+                  "durationMs": 5184000000
+                },
+                {
+                  "durationMs": 7776000000
+                }
+              ],
+              "allowCustom": true
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": {
+              "durationMs": 7776000000
+            }
+          },
+          {
+            "id": "28da10ec-a308-47f5-9819-92ebf810b292",
+            "version": "KqlParameterItem/1.0",
+            "name": "LogAnalyticsSubscription",
+            "type": 6,
+            "value": "/subscriptions/ec18773f-4875-46ae-bf95-c982e4be91ab",
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "includeAll": true,
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            }
+          },
+          {
+            "id": "e383ed24-52ae-447b-9b80-51fd3ab6b919",
+            "version": "KqlParameterItem/1.0",
+            "name": "LogAnalyticsWorkspace",
+            "type": 5,
+            "query": "Resources\r\n| where type == 'microsoft.operationalinsights/workspaces'\r\n| project id\r\n",
+            "crossComponentResources": [
+              "{LogAnalyticsSubscription}"
+            ],
+            "value": "/subscriptions/ec18773f-4875-46ae-bf95-c982e4be91ab/resourceGroups/rg-tccc-cdl-prod/providers/Microsoft.OperationalInsights/workspaces/ws-tccc-cdl-prod-01",
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "9b9fe566-0f52-4a75-a35b-a79c50c6a6f0",
+            "version": "KqlParameterItem/1.0",
+            "name": "DataFactoryResourceName",
+            "type": 5,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "ADFPipelineRun \r\n| distinct _ResourceId",
+            "crossComponentResources": [
+              "{LogAnalyticsWorkspace}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 2592000000
+            },
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces",
+            "value": [
+              "/subscriptions/ec18773f-4875-46ae-bf95-c982e4be91ab/resourcegroups/rg-tccc-cdl-prod/providers/microsoft.datafactory/factories/adf-tccc-cdl-prod"
+            ]
+          },
+          {
+            "id": "ed9e4bc4-41d9-403c-8db8-97e290a81165",
+            "version": "KqlParameterItem/1.0",
+            "name": "PipelineName",
+            "type": 2,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ", ",
+            "query": "ADFPipelineRun \r\n| distinct PipelineName\r\n| order by PipelineName\r\n",
+            "crossComponentResources": [
+              "{LogAnalyticsWorkspace}"
+            ],
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "defaultValue": "value::all",
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "customWidth": "90",
+      "name": "parameters - 2"
+    },
+    {
+      "type": 11,
+      "content": {
+        "version": "LinkItem/1.0",
+        "style": "tabs",
+        "links": [
+          {
+            "id": "202cbbc0-8d63-416d-89ed-451d6fe7c4b3",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Overview",
+            "subTarget": "Overview",
+            "preText": "Workload",
+            "style": "link"
+          },
+          {
+            "id": "d540b6b2-21ed-463f-9501-d430fb7468eb",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Pipeline Run Details",
+            "subTarget": "PipelineRunDetails",
+            "style": "link"
+          },
+          {
+            "id": "a81e4c4a-81d3-4278-82a3-92ab2d2dc817",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Top5 Trigger Failures",
+            "subTarget": "Top5TriggerFailures",
+            "style": "link"
+          },
+          {
+            "id": "738b88fb-b088-47df-9d0a-938378c06a81",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Top5 Pipeline Failures",
+            "subTarget": "Top5PipelineFailures",
+            "style": "link"
+          },
+          {
+            "id": "67ac8296-b888-405f-99b1-fd9d6f046dd3",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Top5 Activity Failures",
+            "subTarget": "Top5ActivityFailures",
+            "style": "link"
+          },
+          {
+            "id": "23e018ad-6755-4594-b9c5-0bb08492cba0",
+            "cellValue": "GroupSelection",
+            "linkTarget": "parameter",
+            "linkLabel": "Long Running Pipelines",
+            "subTarget": "LongRunningPipelines",
+            "style": "link"
+          }
+        ]
+      },
+      "name": "links - 0"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "let LatestRun = \r\nADFPipelineRun\r\n|where Status != \"Queued\" and Status != \"Canceling\"\r\n| summarize arg_max(TimeGenerated, *) by PipelineName\r\n| project latest_PipelineName = PipelineName, latestTimeGenerated = TimeGenerated, latestStatus = Status;\r\nADFPipelineRun \r\n| where Status != \"Queued\" and Status != \"Canceling\"\r\n| summarize arg_max(TimeGenerated, *) by RunId\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)\r\n| extend PipelineRuntime = ActualEnd - Start\r\n| extend PipelineRuntimeTicks = totimespan(PipelineRuntime)\r\n| extend durationSec = todouble(PipelineRuntimeTicks) / 10000000.0\r\n//| extend runDay = format_datetime(datetime_add('hour',-4,Start), 'yyyy-MM-dd')\r\n| extend failCount = iff(Status == 'Failed', 1, 0)\r\n| extend inProgressCount = iff(Status == 'InProgress', 1, 0)\r\n| extend SucceededCount = iff(Status == 'Succeeded', 1, 0)\r\n| summarize\r\n    sum(durationSec),\r\n    avg(PipelineRuntime),\r\n    count(),\r\n    sum(failCount),\r\n    sum(inProgressCount),\r\n    sum(SucceededCount),\r\n    max(ActualEnd),\r\n    min(Start)\r\n    by PipelineName //, runDay\r\n| join kind=inner (LatestRun) on $left.PipelineName == $right.latest_PipelineName\r\n| project\r\n    PipelineName,\r\n    //runDay,\r\n    //sum_durationSec,\r\n    avg_PipelineRuntime,\r\n    count_,\r\n    sum_failCount,\r\n    sum_inProgressCount,\r\n    sum_SucceededCount,\r\n    latestStatus,\r\n    min_Start,\r\n    max_ActualEnd,\r\n    latestTimeGenerated\r\n| order by latestTimeGenerated\r\n",
+              "size": 0,
+              "showAnalytics": true,
+              "title": "Pipeline Daily Execution Stats",
+              "timeContextFromParameter": "TimeRange",
+              "showRefreshButton": true,
+              "exportFieldName": "PipelineName",
+              "exportParameterName": "MainPipeline",
+              "showExportToExcel": true,
+              "exportToExcelOptions": "all",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "aggregatedDurationsMinSec",
+                    "formatter": 2
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true
+              },
+              "sortBy": []
+            },
+            "showPin": true,
+            "name": "Pipeline Daily Execution Stats"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "let PipelineNameFilter = \"{MainPipeline}\";\r\n// Get runtime in seconds for each successful run\r\nlet SuccessfulRuns = ADFPipelineRun\r\n| where PipelineName == PipelineNameFilter and Status != \"Queued\" and Status != \"Canceling\" and PipelineName == PipelineNameFilter\r\n| summarize arg_max(TimeGenerated, *) by RunId\r\n    //| where Status == 'Succeeded' and PipelineName == PipelineNameFilter\r\n    | extend ActualEnd = case(End < datetime(1990), now(), End)\r\n    | extend successfulPipelineRuntime = ActualEnd - Start\r\n    | extend successfulPipelineRuntimeTicks = totimespan(successfulPipelineRuntime)\r\n    | extend successfulPipelineRuntimeSeconds = todouble(successfulPipelineRuntimeTicks) / 10000000.0\r\n    | project SuccessTimeGenerated = TimeGenerated, successfulPipelineRuntimeSeconds, PipelineName\r\n    | order by SuccessTimeGenerated asc\r\n    | serialize\r\n    | extend CumulativeDuration = row_cumsum(successfulPipelineRuntimeSeconds)\r\n    | extend TotalCountSoFar = row_cumsum(1)\r\n    | project SuccessTimeGenerated, CumulativeDuration, TotalCountSoFar;\r\nADFPipelineRun\r\n| where PipelineName == PipelineNameFilter and Status != \"Queued\" and Status != \"Canceling\"\r\n| summarize arg_max(TimeGenerated, *) by RunId\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)\r\n| extend currentRuntime = ActualEnd - Start\r\n| project TimeGenerated, PipelineName, currentRuntime, Status, Start, ActualEnd, RunId\r\n| order by TimeGenerated asc \r\n| join kind=leftouter (SuccessfulRuns) on $left.TimeGenerated == $right.SuccessTimeGenerated \r\n| extend CumulativeAvg = totimespan(CumulativeDuration / TotalCountSoFar * 1s)\r\n| extend PercentageDifference = round((((currentRuntime - CumulativeAvg) / CumulativeAvg) * 100),0)\r\n| project TimeGenerated, PipelineName, Status, currentRuntime, CumulativeAvg, PercentageDifference, TotalCountSoFar, Start, ActualEnd, RunId\r\n| order by TimeGenerated desc\r\n",
+              "size": 0,
+              "showAnalytics": true,
+              "title": "Pipeline Execution History",
+              "timeContextFromParameter": "TimeRange",
+              "showRefreshButton": true,
+              "exportFieldName": "RunId",
+              "exportParameterName": "MainPipelineRunId",
+              "showExportToExcel": true,
+              "exportToExcelOptions": "all",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "rowLimit": 10000,
+                "filter": true
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "MainPipeline",
+              "comparison": "isNotEqualTo"
+            },
+            "showPin": true,
+            "name": "Pipeline Execution History"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "let PipelineRunIdFilter = \"{MainPipelineRunId}\";\r\nADFActivityRun\r\n| where PipelineRunId == PipelineRunIdFilter and Status != \"Queued\" and Status != \"Canceling\"\r\n| summarize arg_max(TimeGenerated, *) by ActivityRunId\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)\r\n| extend currentRuntime = ActualEnd - Start\r\n| project TimeGenerated, PipelineName, ActivityName, ActivityType, currentRuntime, Status, ErrorCode, ErrorMessage, Start, ActualEnd, ActivityRunId, PipelineRunId\r\n| order by TimeGenerated desc \r\n",
+              "size": 0,
+              "showAnalytics": true,
+              "title": "Activity Runs",
+              "timeContextFromParameter": "TimeRange",
+              "showRefreshButton": true,
+              "exportedParameters": [
+                {
+                  "fieldName": "ActivityName",
+                  "parameterName": "MainActivityName",
+                  "parameterType": 1
+                },
+                {
+                  "fieldName": "PipelineName",
+                  "parameterName": "MainActivityPipelineName",
+                  "parameterType": 1
+                }
+              ],
+              "showExportToExcel": true,
+              "exportToExcelOptions": "all",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "rowLimit": 10000,
+                "filter": true
+              }
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "MainPipeline",
+                "comparison": "isNotEqualTo"
+              },
+              {
+                "parameterName": "MainPipelineRunId",
+                "comparison": "isNotEqualTo"
+              }
+            ],
+            "showPin": true,
+            "name": "Activity Runs"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "let PipelineNameFilter = \"{MainActivityPipelineName}\";\r\nlet ActivityNameFilter = \"{MainActivityName}\";\r\n// Get runtime in seconds for each successful run\r\nlet SuccessfulRuns = ADFActivityRun\r\n    | where  Status != \"Queued\" and Status != \"Canceling\" and ActivityName == ActivityNameFilter and PipelineName == PipelineNameFilter\r\n    | summarize arg_max(TimeGenerated, *) by ActivityRunId\r\n    | extend ActualEnd = case(End < datetime(1990), now(), End)\r\n    | extend successfulActivityRuntime = ActualEnd - Start\r\n    | extend successfulActivityRuntimeTicks = totimespan(successfulActivityRuntime)\r\n    | extend successfulActivityRuntimeSeconds = todouble(successfulActivityRuntimeTicks) / 10000000.0\r\n    | project SuccessTimeGenerated = TimeGenerated, successfulActivityRuntimeSeconds, PipelineName, ActivityName\r\n    | order by SuccessTimeGenerated asc\r\n    | serialize\r\n    | extend CumulativeDuration = row_cumsum(successfulActivityRuntimeSeconds)\r\n    | extend TotalCountSoFar = row_cumsum(1)\r\n    | project SuccessTimeGenerated, CumulativeDuration, TotalCountSoFar;\r\nADFActivityRun\r\n| where PipelineName == PipelineNameFilter and ActivityName == ActivityNameFilter and Status != \"Queued\" and Status != \"Canceling\"\r\n| summarize arg_max(TimeGenerated, *) by ActivityRunId\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)\r\n| extend currentRuntime = ActualEnd - Start\r\n| project TimeGenerated, PipelineName, ActivityName, currentRuntime, Status, ErrorCode, ErrorMessage, Start, ActualEnd, ActivityRunId, PipelineRunId\r\n| order by TimeGenerated asc \r\n| join kind=leftouter (SuccessfulRuns) on $left.TimeGenerated == $right.SuccessTimeGenerated //\r\n| extend CumulativeAvg = totimespan(CumulativeDuration / TotalCountSoFar * 1s)\r\n| extend PercentageDifference = round((((currentRuntime - CumulativeAvg) / CumulativeAvg) * 100),0)\r\n| project TimeGenerated, PipelineName, ActivityName, Status, ErrorCode, ErrorMessage, currentRuntime, CumulativeAvg, PercentageDifference, TotalCountSoFar, Start, ActualEnd, ActivityRunId, PipelineRunId\r\n| order by TimeGenerated desc\r\n",
+              "size": 0,
+              "showAnalytics": true,
+              "title": "Activity Run History",
+              "timeContextFromParameter": "TimeRange",
+              "showRefreshButton": true,
+              "showExportToExcel": true,
+              "exportToExcelOptions": "all",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "visualization": "table",
+              "gridSettings": {
+                "rowLimit": 10000,
+                "filter": true
+              }
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "MainActivityPipelineName",
+                "comparison": "isNotEqualTo"
+              },
+              {
+                "parameterName": "MainActivityName",
+                "comparison": "isNotEqualTo"
+              }
+            ],
+            "showPin": true,
+            "name": "Activity Run History"
+          }
+        ],
+        "exportParameters": true
+      },
+      "conditionalVisibility": {
+        "parameterName": "GroupSelection",
+        "comparison": "isEqualTo",
+        "value": "Overview"
+      },
+      "name": "overviewGroup",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFPipelineRun\r\n| where PipelineName in ({PipelineName}) and Status in ('Succeeded', 'Failed')\r\n| extend Duration = format_timespan(totimespan((End-Start)),'dd.hh:mm:ss')\r\n| project Status, Start, End, Duration, RunId\r\n",
+              "size": 1,
+              "showAnalytics": true,
+              "title": "Pipeline Runs",
+              "timeContextFromParameter": "TimeRange",
+              "exportedParameters": [
+                {
+                  "fieldName": "_ResourceId",
+                  "parameterName": "DataFactoryResourceName"
+                },
+                {
+                  "fieldName": "RunId",
+                  "parameterName": "RunId",
+                  "parameterType": 1
+                }
+              ],
+              "showExportToExcel": true,
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "/subscriptions/26996768-7e3c-46bf-94a8-10d4477ff4ee/resourceGroups/rg-tccc-cdl-dev/providers/Microsoft.OperationalInsights/workspaces/ws-tccc-cdl-dev-01"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "Status",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "icons",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Succeeded",
+                          "representation": "success",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Failed",
+                          "representation": "4",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": null,
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "Duration",
+                    "formatter": 0,
+                    "numberFormat": {
+                      "unit": 24,
+                      "options": {
+                        "style": "decimal",
+                        "useGrouping": false
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Duration_s",
+                    "formatter": 0,
+                    "numberFormat": {
+                      "unit": 24,
+                      "options": {
+                        "style": "decimal",
+                        "useGrouping": true,
+                        "minimumFractionDigits": 3
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Duration_m",
+                    "formatter": 0,
+                    "numberFormat": {
+                      "unit": 25,
+                      "options": {
+                        "style": "decimal",
+                        "useGrouping": false
+                      }
+                    }
+                  }
+                ],
+                "filter": true,
+                "sortBy": [
+                  {
+                    "itemKey": "Start",
+                    "sortOrder": 2
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "Start",
+                  "sortOrder": 2
+                }
+              ]
+            },
+            "showPin": true,
+            "name": "query - 2"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFActivityRun\r\n| where CorrelationId == '{RunId}' \r\n| where Status in ('Succeeded', 'Failed')\r\n| project PipelineRunId, ActivityName, ActivityRunId, Start, End, Status, ErrorMessage, ActivityType,\r\n          ActivityDuration_s = datetime_diff('second', End, Start),\r\n          ActivityDuration_m = datetime_diff('minute', End, Start),\r\n          DataReadMBs = parse_json(Output).dataRead / 1024 / 1024,\r\n          DataWrittenMBs = parse_json(Output).dataWritten / 1024 /1024,\r\n          RowsRead = parse_json(Output).rowsRead,\r\n          RowsCopied = parse_json(Output).rowsCopied,\r\n          ThroughputKBps = parse_json(Output).throughput,\r\n          CopyDurationSec = parse_json(Output).copyDuration,\r\n          UsedParalleCopies = parse_json(Output).usedParallelCopies,\r\n          Input = parse_json(Input),\r\n          Output = parse_json(Output)\r\n| order by Start\r\n",
+              "size": 0,
+              "title": "Select a pipeline run above to see activities",
+              "noDataMessageStyle": 4,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "Status",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "icons",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Succeeded",
+                          "representation": "success",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Failed",
+                          "representation": "4",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "success",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "name": "ActivityRunDetails"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "// Display name: Pipeline runs Top 5 Failures\r\n// Description: Returns Top 5 pipelines failing with systemErrors.\r\n// Categories: Azure Resources\r\n// Resource types: Data factories\r\n// Topic: Diagnostics \r\nlet name = ADFPipelineRun\r\n| where Status != 'InProgress' and Status != 'Queued'\r\n| where FailureType != 'UserError'\r\n| summarize failureCount = countif(Status != 'Succeeded') by PipelineName\r\n| top 10 by failureCount desc nulls last\r\n| where failureCount != 0\r\n| project PipelineName;\r\nADFPipelineRun \r\n//| where TimeGenerated >= ago(24h)\r\n| where Status != 'InProgress' and Status != 'Queued'\r\n| where FailureType != 'UserError'\r\n| where PipelineName  in (name)\r\n| summarize failureCount = countif(Status != 'Succeeded') by bin(TimeGenerated, 1h), PipelineName, FailureType\r\n| order by TimeGenerated \r\n| render barchart\r\n",
+              "size": 0,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "/subscriptions/26996768-7e3c-46bf-94a8-10d4477ff4ee/resourceGroups/rg-tccc-cdl-dev/providers/Microsoft.OperationalInsights/workspaces/ws-tccc-cdl-dev-01"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "GroupSelection",
+              "comparison": "isEqualTo",
+              "value": "Top5PipelineFailures"
+            },
+            "name": "query - 5"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "GroupSelection",
+        "comparison": "isEqualTo",
+        "value": "PipelineRunDetails"
+      },
+      "name": "PipelineRunDetails"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFTriggerRun \r\n| where Status != 'Running' and Status != 'Waiting' and Status != 'WaitingOnDependency'\r\n| where TriggerFailureType != 'UserError'\r\n| summarize failureCount = countif(Status != 'Succeeded') by bin(TimeGenerated, 1h), TriggerName\r\n//| where failureCount != 0\r\n| order by failureCount desc\r\n| limit 5\r\n",
+              "size": 0,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ]
+            },
+            "name": "query - 0"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "GroupSelection",
+        "comparison": "isEqualTo",
+        "value": "Top5TriggerFailures"
+      },
+      "name": "group - Top 5 Trigger Failures"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFPipelineRun\r\n| where Status != 'InProgress' and Status != 'Queued'\r\n| where FailureType != 'UserError'\r\n| summarize failureCount = countif(Status != 'Succeeded') by PipelineName\r\n//| top 5 by failureCount desc nulls last\r\n| where failureCount != 0\r\n| project PipelineName, failureCount\r\n| order by failureCount desc \r\n| limit 5\r\n",
+              "size": 0,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ]
+            },
+            "name": "query - 1"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "GroupSelection",
+        "comparison": "isEqualTo",
+        "value": "Top5PipelineFailures"
+      },
+      "name": "Top 5 Pipeline Failures"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "let name = ADFActivityRun\r\n| where Status != 'InProgress' and Status != 'Queued'\r\n| where FailureType != 'UserError'\r\n| summarize failureCount = countif(Status != 'Succeeded') by ActivityName\r\n| top 5 by failureCount desc nulls last\r\n| where failureCount != 0\r\n| project ActivityName;\r\nADFActivityRun \r\n| where Status != 'InProgress' and Status != 'Queued'\r\n| where FailureType != 'UserError'\r\n| where ActivityName  in (name)\r\n| summarize failureCount = countif(Status != 'Succeeded') by bin(TimeGenerated, 1h), ActivityName\r\n| order by TimeGenerated asc\r\n| limit 5\r\n",
+              "size": 0,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "GroupSelection",
+              "comparison": "isEqualTo",
+              "value": "Top5ActivityFailures"
+            },
+            "name": "Top 5 Activity Failures"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "GroupSelection",
+        "comparison": "isEqualTo",
+        "value": "Top5ActivityFailures"
+      },
+      "name": "Top 5 Activity Failures"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFPipelineRun \r\n| where Status != \"Queued\" and Status != \"Canceling\"\r\n//| where PipelineName == \"Pipeline name 1\"                    // replace with the name of the pipeline you wish to monitor\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)  // running pipelines do not have an end time yet, so treat it as now\r\n| summarize arg_max(TimeGenerated, *) by RunId\r\n| extend Runtime = ActualEnd - Start\r\n| where Runtime > timespan(1h) // some cases 1h is expected...\r\n| project TimeGenerated, PipelineName, Status, Runtime, Start, End, Parameters\r\n| order by Runtime desc",
+              "size": 2,
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalyticsWorkspace}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "Status",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "icons",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Succeeded",
+                          "representation": "success",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Failed",
+                          "representation": "4",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Cancelled",
+                          "representation": "1",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "success",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "GroupSelection",
+              "comparison": "isEqualTo",
+              "value": "LongRunningPipelines"
+            },
+            "name": "Long Running Pipelines"
+          }
+        ]
+      },
+      "name": "Long Running Pipelines"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let LatestRun = \r\nADFPipelineRun\r\n|where Status == \"Failed\"\r\n| summarize arg_max(TimeGenerated, *) by PipelineName\r\n| project latest_PipelineName = PipelineName, latestTimeGenerated = TimeGenerated, latestStatus = Status;\r\nADFPipelineRun \r\n| where Status == \"Failed\"\r\n| summarize arg_max(TimeGenerated, *) by RunId\r\n| extend ActualEnd = case(End < datetime(1990), now(), End)\r\n| extend PipelineRuntime = ActualEnd - Start\r\n| extend PipelineRuntimeTicks = totimespan(PipelineRuntime)\r\n| extend durationSec = todouble(PipelineRuntimeTicks) / 10000000.0\r\n//| extend runDay = format_datetime(datetime_add('hour',-4,Start), 'yyyy-MM-dd')\r\n| extend failCount = iff(Status == 'Failed', 1, 0)\r\n| summarize\r\n    sum(durationSec),\r\n    avg(PipelineRuntime),\r\n    count(),\r\n    sum(failCount),\r\n    //sum(inProgressCount),\r\n    //sum(SucceededCount),\r\n    max(ActualEnd),\r\n    min(Start)\r\n    by PipelineName //, runDay\r\n| join kind=inner (LatestRun) on $left.PipelineName == $right.latest_PipelineName\r\n| project\r\n    PipelineName,\r\n    //runDay,\r\n    //sum_durationSec,\r\n    avg_PipelineRuntime,\r\n    count_,\r\n    sum_failCount,\r\n    //sum_inProgressCount,\r\n    //sum_SucceededCount,\r\n    latestStatus,\r\n    min_Start,\r\n    max_ActualEnd,\r\n    latestTimeGenerated\r\n| order by latestTimeGenerated\r\n",
+        "size": 0,
+        "timeContext": {
+          "durationMs": 86400000
+        },
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "/subscriptions/ec18773f-4875-46ae-bf95-c982e4be91ab/resourceGroups/rg-tccc-cdl-prod/providers/Microsoft.OperationalInsights/workspaces/ws-tccc-cdl-prod-01"
+        ]
+      },
+      "name": "query - 8"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
